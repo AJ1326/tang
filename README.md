@@ -24,7 +24,6 @@ expo start --android     |  Run android mode
 expo start --ios     	 |  Run android mode
 
 
-
 ### Libraries
 - [React Navigation](https://reactnavigation.org/)
 - [React Native Gesture Handler](https://github.com/kmagiera/react-native-gesture-handler)
@@ -36,7 +35,6 @@ expo start --ios     	 |  Run android mode
 	- expo contacts, fonts, app-loading(https://docs.expo.io/versions/latest/sdk/contacts/)
 
 ### Steps
-
 1. Clone this repo, `git clone `
 2. Go to project's root directory, `cd tang`
 3. Run `npm` to install dependencies
