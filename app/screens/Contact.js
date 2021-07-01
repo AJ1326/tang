@@ -1,11 +1,11 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   getContactList,
   resetContactList,
   setContactList,
-  setSelectedContactList
-} from '../redux/modules/actions/contactListAction.js';
+  setSelectedContactList,
+} from "../redux/modules/actions/contactListAction.js";
 import {
   StyleSheet,
   View,
@@ -14,13 +14,14 @@ import {
   ActivityIndicator,
   RefreshControl,
   Platform,
-} from 'react-native';
-import Image from 'react-native-remote-svg';
-import theme from '../constants/theme';
-import ContactListCard from '../components/contactListCard/ContactListCard.js';
-import TextField from '../components/formFields/TextField';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import Loading from './Loading';
+} from "react-native";
+import Image from "react-native-remote-svg";
+import theme from "../constants/theme";
+import ContactListCard from "../components/contactListCard/ContactListCard.js";
+import TextField from "../components/formFields/TextField";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import Loading from "./Loading";
+import { ColorPicker } from 'react-native-color-picker'
 
 class Contact extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Contact extends React.Component {
     this.state = {
       contactsFetched: false,
       selectedContact: {},
-      searchByContactName: '',
+      searchByContactName: "",
       isJoinContactList: true,
       pageSize: 10,
       pageOffset: 0,
@@ -37,7 +38,7 @@ class Contact extends React.Component {
   }
 
   componentDidMount() {
-    this.props.navigation.addListener('focus', route => {
+    this.props.navigation.addListener("focus", (route) => {
       this.onRefresh();
     });
   }
@@ -47,14 +48,18 @@ class Contact extends React.Component {
   }
 
   handleLoadContactListList = () => {
-    if (!this.state.isLoading && !this.state.searchByContactName && !this.state.contactsFetched) {
+    if (
+      !this.state.isLoading &&
+      !this.state.searchByContactName &&
+      !this.state.contactsFetched
+    ) {
       this.setState(
         {
           pageSize: this.state.pageSize,
           pageOffset: this.state.pageOffset + 10,
-          isJoinContactList: true
+          isJoinContactList: true,
         },
-        this.getContactListData,
+        this.getContactListData
       );
     }
   };
@@ -62,17 +67,19 @@ class Contact extends React.Component {
   fetchingContactlogsStarted = () => {
     this.setState(
       {
-        isLoading: (this.state.searchByContactName === 'true'),
+        isLoading: this.state.searchByContactName === "true",
       },
-      this.getNextContactListData,
+      this.getNextContactListData
     );
   };
 
-  fetchingContactlogsCompleted = fetchedContactListCount => {
+  fetchingContactlogsCompleted = (fetchedContactListCount) => {
     this.setState({
       isLoading: false,
       contactsFetched:
-        fetchedContactListCount <= this.props.contactListData.length ? true : false,
+        fetchedContactListCount <= this.props.contactListData.length
+          ? true
+          : false,
     });
   };
 
@@ -108,46 +115,51 @@ class Contact extends React.Component {
         contactsFetched: false,
         isJoinContactList: false,
       },
-      () =>
-      this.fetchingContactlogsStarted(),
+      () => this.fetchingContactlogsStarted()
     );
   };
 
-  handleSelectedContact = contact => {
-    this.setState({
-      selectedContact: contact
-    },
-    () => {
-      this.props.setSelectedContactList({
-        selectedContact: this.state.selectedContact
-      })
-      this.props.navigation.navigate('Home');
-    })
-  }
+  handleSelectedContact = (contact) => {
+    this.setState(
+      {
+        selectedContact: contact,
+      },
+      () => {
+        this.props.setSelectedContactList({
+          selectedContact: this.state.selectedContact,
+        });
+        this.props.navigation.navigate("Home");
+      }
+    );
+  };
 
-  handleTextChange = searchName => {
-    this.setState({
-      searchByContactName: searchName
-    },  ()=>{
-      this.onRefresh();
-    });
+  handleTextChange = (searchName) => {
+    this.setState(
+      {
+        searchByContactName: searchName,
+      },
+      () => {
+        this.onRefresh();
+      }
+    );
   };
 
   render() {
     const navigation = this.props.navigation;
     return (
       <View style={styles.container}>
-        <TextField
+        {/* <TextField
           value={this.state.searchByContactName}
           placeholder="Search by contact name..."
           onChangeText={this.handleTextChange}
           style={[styles.inputTopMargin]}
           returnKeyType="done"
-        />
+        /> */}
         <Loading />
         {this.props.contactListData.length > 0 ? (
           <View>
-            <FlatList
+            <Text>Working</Text>
+            {/* <FlatList
               keyExtractor={(item, index) => String(index + '-' + item._id)}
               data={this.props.contactListData}
               style={styles.flatList}
@@ -169,18 +181,22 @@ class Contact extends React.Component {
               ListFooterComponent={this.renderFooterView}
               onEndReached={this.handleLoadContactListList}
               onEndReachedThreshold={Platform.OS === 'ios' ? 0 : 1}
-            />
+            /> */}
           </View>
-        ) : ( 
-          <View style={styles.noContactDataFoundContainer}>
-            <Text style={styles.noContactDataFoundHeading}>Oops !!</Text>
+        ) : (
+          <View style={styles.container}>
+              <ColorPicker
+                onColorSelected={color => alert(`Color selected: ${color}`)}
+                style={{flex: 1}}
+              />
+            {/* <Text style={styles.noContactDataFoundHeading}>Oops !!</Text>
             <Text style={styles.noContactDataFoundText}>
               No Contact founnd with the given name.
             </Text>
             <Image
               style={styles.noContactDataFoundImage}
-              source={require('../../assets/images/contactReport/not_found.svg')}
-            />
+              source={require("../../assets/images/contactReport/not_found.svg")}
+            /> */}
           </View>
         )}
       </View>
@@ -191,8 +207,14 @@ class Contact extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: wp('100%'),
+    width: wp("100%"),
     backgroundColor: theme.background.light,
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 12,
+    padding: 12,
   },
   contactListContainer: {
     paddingBottom: 10,
@@ -203,36 +225,36 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   noContactDataFoundContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   noContactDataFoundHeading: {
     color: theme.text.dark,
-    fontFamily: 'Bitter-Regular',
+    fontFamily: "Bitter-Regular",
     fontSize: 24,
     letterSpacing: 0,
     lineHeight: 31,
-    textAlign: 'center',
+    textAlign: "center",
   },
   noContactDataFoundText: {
     color: theme.text.dark,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: "OpenSans-Regular",
     fontSize: 14,
     letterSpacing: 0,
     lineHeight: 19,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 12,
     paddingHorizontal: 30,
   },
   noContactDataFoundImage: {
-    position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
     height: 250,
     width: 256,
     marginTop: 50,
@@ -241,7 +263,7 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  ({contactList}) => ({
+  ({ contactList }) => ({
     contactListData: contactList.contactListData || [],
   }),
   {
@@ -249,5 +271,5 @@ export default connect(
     setContactList,
     setSelectedContactList,
     resetContactList,
-  },
+  }
 )(Contact);

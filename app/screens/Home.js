@@ -38,9 +38,9 @@ const Home = ({
       ) :
       (
         <View style={styles.contactDataContainer}>
-          <Text style={styles.contactDataHeading}>Select Contact</Text>
+          <Text style={styles.contactDataHeading}>Add Settings</Text>
           <Text style={styles.contactDataText}>
-            Click the plus icon to add contact.
+            Click the plus icon to change color.
           </Text>
           <Image
             style={styles.addContactListArrow}

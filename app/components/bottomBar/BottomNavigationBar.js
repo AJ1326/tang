@@ -19,8 +19,8 @@ const BottomNavigationBar = ({state, navigation}) => {
       <View style={styles.buttonWrapper}>
         <TabButton
           onPress={() => onPress('Home')}
-          inactiveIcon="person-circle-outline"
-          activeIcon="person-circle"
+          inactiveIcon="book-outline"
+          activeIcon="book"
           inactiveColor={theme.icons.inactive}
           activeColor={theme.icons.active}
           label="Home"
@@ -32,13 +32,13 @@ const BottomNavigationBar = ({state, navigation}) => {
       </View>
       <View style={styles.buttonWrapper}>
         <TabButton
-          onPress={() => onPress('Documentation')}
-          inactiveIcon="book-outline"
-          activeIcon="book"
+          onPress={() => onPress('Account')}
+          inactiveIcon="person-circle-outline"
+          activeIcon="person-circle"
           inactiveColor={theme.icons.inactive}
           activeColor={theme.icons.active}
-          label="Documentation"
-          isActive={currentRoute === 'Documentation'}
+          label="Profile"
+          isActive={currentRoute === 'Account'}
         />
       </View>
     </SafeAreaView>

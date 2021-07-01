@@ -1,6 +1,6 @@
 export default {
-  primary: '#40E1B6',
-  secondary: '#00E5B3',
+  primary: '#000000',
+  secondary: '#000000',
   success: '#4AD2AD',
   error: '#FE7D7A',
   white: '#FFFFFF',
@@ -36,7 +36,7 @@ export default {
   },
   icons: {
     inactive: '#49a2ef',
-    active: '#3c85c5',
+    active: '#000000',
     gray: '#E3E3E3',
     light: '#D1D1D1',
     darkgray: '#34414F',

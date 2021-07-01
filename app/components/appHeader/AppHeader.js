@@ -15,7 +15,7 @@ const AppHeader = ({}) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeAreaView}>
-          <Text style={styles.headingName}>Tang Assignment</Text>
+          <Text style={styles.headingName}>Livin</Text>
       </SafeAreaView>
     </View>
   );
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'flex-end',
     backgroundColor: theme.icons.active,
-    height: hp('11%'),
+    height: hp('12%'),
     width: wp('100%'),
     paddingBottom: hp('1%'),
   },
